@@ -15,6 +15,8 @@ public class CharacterControlledEntity: GKEntity {
     public init(characterData: CharacterData, cameraNode: SCNNode) {
         super.init()
         
+        self.addComponent(CharacterDataComponent(data: characterData))
+        
         // Node component
         if let scene = SCNScene(named: characterData.prefixPath + characterData.name + ".scn"),
            let boydNode = scene.rootNode.childNode(withName: "body", recursively: true){
