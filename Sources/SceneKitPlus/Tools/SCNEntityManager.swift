@@ -8,7 +8,7 @@ import Foundation
 import GameplayKit
 import SceneKit
 
-class SCNEntityManager {
+public class SCNEntityManager {
     
     private var entities: [GKEntity] = []
     
