@@ -14,5 +14,5 @@ public struct CharacterData {
     var jumpForce: CGFloat
     var prefixPath: String = "art.scnassets/"
     
-    public static let defaultCharacter = CharacterData(name: "fox", speed: 4, jumpForce: 8, prefixPath: "package.scnassets/")
+    public static let defaultCharacter = CharacterData(name: "fox", speed: 4, jumpForce: 8)
 }
