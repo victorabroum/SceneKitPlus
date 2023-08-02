@@ -16,7 +16,7 @@ public struct CharacterData {
     
     public static let defaultCharacter = CharacterData(name: "fox", speed: 4, jumpForce: 8)
     
-    public init(name: String, speed: CGFloat, jumpForce: CGFloat, prefixPath: String = "") {
+    public init(name: String, speed: CGFloat, jumpForce: CGFloat, prefixPath: String = "art.scnassets/") {
         self.name = name
         self.speed = speed
         self.jumpForce = jumpForce
