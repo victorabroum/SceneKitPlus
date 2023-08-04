@@ -41,7 +41,8 @@ public class MovementComponent: GKComponent {
     public override func update(deltaTime seconds: TimeInterval) {
         
         guard direction != .zero else {
-            self.physicsComponent?.body?.velocity = .init(x: 0, y: 0, z: 0)
+            let velocityY = self.physicsComponent?.body?.velocity.y ?? 0
+            self.physicsComponent?.body?.velocity = .init(x: 0, y: velocityY, z: 0)
             return
         }
         
