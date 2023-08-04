@@ -45,7 +45,8 @@ public class CharacterControlledEntity: GKEntity {
         
         animationComp.playAnimation(named: "idle")
         
-        let moveComp = MovementComponent(speed: 4, jumpForce: 8)
+        let moveComp = MovementComponent(speed: characterData.speed,
+                                         jumpForce: characterData.jumpForce)
         self.addComponent(moveComp)
         
         controllerComp = CharacterControllerComponent(cameraNode: cameraNode)
