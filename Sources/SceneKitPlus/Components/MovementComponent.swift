@@ -39,8 +39,10 @@ public class MovementComponent: GKComponent {
     
     public override func update(deltaTime seconds: TimeInterval) {
         
+        
+        let velocityY = self.physicsComponent?.body?.velocity.y ?? 0
+        
         guard direction != .zero else {
-            let velocityY = self.physicsComponent?.body?.velocity.y ?? 0
             self.physicsComponent?.body?.velocity = .init(x: 0, y: velocityY, z: 0)
             return
         }
@@ -50,7 +52,7 @@ public class MovementComponent: GKComponent {
         model?.runAction(.rotate(toAxisAngle: rotation, duration: 0.01))
         
         let direction = SCNVector3(x: CGFloat(Float(direction.x * speed)),
-                                   y: 0,
+                                   y: velocityY,
                                    z: CGFloat(direction.y * speed))
         
         self.physicsComponent?.body?.velocity = direction
