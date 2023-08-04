@@ -12,25 +12,25 @@ public class CharacterControlledEntity: GKEntity {
     
     public var controllerComp: CharacterControllerComponent?
     
-    public init(characterData: CharacterData, cameraNode: SCNNode) {
+    public init(characterData: CharacterData, cameraNode: SCNNode, cameraFollowEnabled: Bool = false) {
         super.init()
         
         self.addComponent(CharacterDataComponent(data: characterData))
         
         // Node component
         if let scene = SCNScene(named: characterData.prefixPath + characterData.name + ".scn"),
+           let modelNode = scene.rootNode.childNode(withName: "\(characterData.name)", recursively: true),
            let boydNode = scene.rootNode.childNode(withName: "body", recursively: true){
-            
-//            ,
-//            let modelNode = scene.rootNode.childNode(withName: named, recursively: true)
-            
+
             let nodeComponent = GKSCNNodeComponent(node: scene.rootNode)
             self.addComponent(nodeComponent)
             
-//            self.addComponent(ModelComponent(model: modelNode))
-            
             let physicsComp = PhysicsComponent(model: boydNode)
             self.addComponent(physicsComp)
+            
+            if (cameraFollowEnabled) {
+                self.addComponent(CameraFollowComponent(modelNode: modelNode, cameraNode: cameraNode))
+            }
         }
         
         // Animation component
@@ -51,6 +51,7 @@ public class CharacterControlledEntity: GKEntity {
         
         controllerComp = CharacterControllerComponent(cameraNode: cameraNode)
         self.addComponent(controllerComp!)
+        
         
     }
     
