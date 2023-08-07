@@ -9,10 +9,10 @@ import Foundation
 
 public struct CharacterData {
     
-    var name: String
-    var speed: CGFloat
-    var jumpForce: CGFloat
-    var prefixPath: String = "art.scnassets/"
+    public var name: String
+    public var speed: CGFloat
+    public var jumpForce: CGFloat
+    public var prefixPath: String = "art.scnassets/"
     
     public static let defaultCharacter = CharacterData(name: "fox", speed: 1.5, jumpForce: 4)
     
