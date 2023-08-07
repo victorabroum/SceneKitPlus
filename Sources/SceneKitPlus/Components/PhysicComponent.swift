@@ -14,7 +14,7 @@ public class PhysicsComponent: GKComponent {
     
     public var body: SCNPhysicsBody?
     
-    init(model: SCNNode) {
+    public init(model: SCNNode) {
         self.model = model
         super.init()
     }
