@@ -34,7 +34,7 @@ public class CharacterControlledEntity: GKEntity {
         }
         
         // Animation component
-        let animationComp = AnimationComponent(named: characterData.name)
+        let animationComp = AnimationComponent(data: characterData)
         self.addComponent(animationComp)
 
         animationComp.addAnimation(named: "fall", frameRange: 135...174)

@@ -10,13 +10,13 @@ import SceneKit
 
 public class AnimationComponent: GKComponent {
     
-    private var nodeNamed: String
+    private var data: CharacterData
     
     private var node: SCNNode?
     private var lastAnimationNamed: String = ""
     
-    public init(named: String) {
-        self.nodeNamed = named
+    public init(data: CharacterData) {
+        self.data = data
         super.init()
     }
     
@@ -33,7 +33,7 @@ public class AnimationComponent: GKComponent {
     public func addAnimation(named: String,
                              frameRange: ClosedRange<Int>,
                              repeatCount: Float = -1) {
-        guard let animationPlayer = SCNAnimationTools.loadAnimation(fromSceneNamed: "art.scnassets/" + nodeNamed + ".scn") else { return }
+        guard let animationPlayer = SCNAnimationTools.loadAnimation(fromSceneNamed: data.prefixPath + data.name + ".scn") else { return }
         
         let fullAnimaiton = CAAnimation(scnAnimation: animationPlayer.animation)
         let subAnimation = SCNAnimationTools.subAnimation(of: fullAnimaiton,
