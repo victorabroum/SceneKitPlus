@@ -17,17 +17,19 @@ public class PhysicsComponent: GKComponent {
     public init(model: SCNNode) {
         self.model = model
         super.init()
+        
+        self.body = model.physicsBody
+    }
+    
+    public init(model: SCNNode, body: SCNPhysicsBody) {
+        self.model = model
+        super.init()
+        
+        self.model.physicsBody = body
+        self.body = body
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    public override func didAddToEntity() {
-        body = model.physicsBody
-        body?.angularVelocityFactor = .init(x: 0, y: 0, z: 0)
-        body?.friction = 1
-        body?.damping = 0.2
-        body?.mass = 12
     }
 }
