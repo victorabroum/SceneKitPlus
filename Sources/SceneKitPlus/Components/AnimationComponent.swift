@@ -32,7 +32,7 @@ public class AnimationComponent: GKComponent {
     
     public func addAnimation(named: String,
                              frameRange: ClosedRange<Int>,
-                             repeatCount: Float = -1) {
+                             repeatCount: Float = .greatestFiniteMagnitude) {
         guard let animationPlayer = SCNAnimationTools.loadAnimation(fromSceneNamed: data.prefixPath + data.name + ".scn") else { return }
         
         let fullAnimaiton = CAAnimation(scnAnimation: animationPlayer.animation)
