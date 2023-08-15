@@ -49,7 +49,8 @@ public class MovementComponent: GKComponent {
         
         let angle = atan2(direction.x, direction.y)
         let rotation: SCNVector4 = .init(0, 1, 0, angle)
-        model?.runAction(.rotate(toAxisAngle: rotation, duration: 0.01))
+//        model?.runAction(.rotate(toAxisAngle: rotation, duration: 0.01))
+        model?.runAction(.rotateTo(x: rotation.x, y: rotation.y, z: rotation.z, duration: 0.01, usesShortestUnitArc: true))
         
         let direction = SCNVector3(x: CGFloat(Float(direction.x * speed)),
                                    y: velocityY,
