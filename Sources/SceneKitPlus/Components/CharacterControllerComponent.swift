@@ -13,6 +13,8 @@ public class CharacterControllerComponent: GKComponent {
     private var moveComponent: MovementComponent?
     private var animationComponent: AnimationComponent?
     
+    private var axis: CGPoint = .zero
+    
     public init(cameraNode: SCNNode) {
         self.cameraNode = cameraNode
         super.init()
@@ -27,7 +29,17 @@ public class CharacterControllerComponent: GKComponent {
         animationComponent = self.entity?.component(ofType: AnimationComponent.self)
     }
     
+    public func change(x: CGFloat) {
+        self.move(axis: .init(x: x, y: axis.y))
+    }
+    
+    public func change(y: CGFloat) {
+        self.move(axis: .init(x: axis.x, y: y))
+    }
+    
     public func move(axis: CGPoint) {
+        
+        self.axis = axis
         
         if (axis != .zero) {
             
