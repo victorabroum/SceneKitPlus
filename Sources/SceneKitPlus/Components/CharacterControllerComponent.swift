@@ -29,12 +29,16 @@ public class CharacterControllerComponent: GKComponent {
         animationComponent = self.entity?.component(ofType: AnimationComponent.self)
     }
     
-    public func change(x: CGFloat) {
-        self.move(axis: .init(x: x, y: axis.y))
-    }
+//    public func change(x: CGFloat) {
+//        self.move(axis: .init(x: x, y: axis.y))
+//    }
+//    
+//    public func change(y: CGFloat) {
+//        self.move(axis: .init(x: axis.x, y: y))
+//    }
     
-    public func change(y: CGFloat) {
-        self.move(axis: .init(x: axis.x, y: y))
+    public func getAxis() -> CGPoint {
+        return self.axis
     }
     
     public func move(axis: CGPoint) {
