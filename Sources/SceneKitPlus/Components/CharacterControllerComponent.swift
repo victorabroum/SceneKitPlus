@@ -28,7 +28,7 @@ public class CharacterControllerComponent: GKComponent {
         moveComponent = self.entity?.component(ofType: MovementComponent.self)
         animationComponent = self.entity?.component(ofType: AnimationComponent.self)
     }
-    
+
     public func getAxis() -> CGPoint {
         return self.axis
     }
