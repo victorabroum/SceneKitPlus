@@ -10,7 +10,7 @@ import GameplayKit
 
 public class StateMachineComponent: GKComponent {
 
-    var stateMachine: GKStateMachine
+    public var stateMachine: GKStateMachine
     
     public init(stateMachine: GKStateMachine) {
         self.stateMachine = stateMachine
