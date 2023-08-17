@@ -14,7 +14,7 @@ open class GenericAnimState: GKState {
     private var node: SCNNode?
     private var nextStates: [AnyClass]?
     
-    init(entity: GKEntity, animationName: String, nextStates: [AnyClass]? = nil) {
+    public init(entity: GKEntity, animationName: String, nextStates: [AnyClass]? = nil) {
         self.entity = entity
         self.animationName = animationName
         self.nextStates = nextStates
@@ -22,7 +22,7 @@ open class GenericAnimState: GKState {
         self.node = self.entity?.component(ofType: GKSCNNodeComponent.self)?.node
     }
     
-    open override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         guard let nextStates else { return true }
         
         return nextStates.contains { obj in
