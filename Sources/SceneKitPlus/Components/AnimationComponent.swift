@@ -13,7 +13,6 @@ public class AnimationComponent: GKComponent {
     private var data: CharacterData
     
     private var node: SCNNode?
-    private var lastAnimationNamed: String = ""
     
     public init(data: CharacterData) {
         self.data = data
@@ -42,13 +41,5 @@ public class AnimationComponent: GKComponent {
         subAnimation.repeatCount = repeatCount
         self.node?.addAnimation(subAnimation, forKey: named)
         self.node?.animationPlayer(forKey: named)?.stop()
-    }
-    
-    public func playAnimation(named: String) {
-        if named == lastAnimationNamed { return }
-        
-        self.node?.animationPlayer(forKey: lastAnimationNamed)?.stop(withBlendOutDuration: 0.1)
-        self.node?.animationPlayer(forKey: named)?.play()
-        lastAnimationNamed = named
     }
 }

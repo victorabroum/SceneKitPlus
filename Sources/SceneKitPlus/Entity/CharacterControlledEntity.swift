@@ -11,6 +11,7 @@ import SceneKit
 public class CharacterControlledEntity: GKEntity {
     
     public var controllerComp: CharacterControllerComponent?
+    public var animStateComp: StateMachineComponent?
     
     public init(characterData: CharacterData, cameraNode: SCNNode, cameraFollowEnabled: Bool = false) {
         super.init()
@@ -37,13 +38,13 @@ public class CharacterControlledEntity: GKEntity {
         let animationComp = AnimationComponent(data: characterData)
         self.addComponent(animationComp)
 
-        animationComp.addAnimation(named: "fall", frameRange: 135...174)
-        animationComp.addAnimation(named: "jump", frameRange: 118...134)
-        animationComp.addAnimation(named: "attack", frameRange: 97...117)
         animationComp.addAnimation(named: "walk", frameRange: 81...96)
         animationComp.addAnimation(named: "idle", frameRange: 0...80)
         
-        animationComp.playAnimation(named: "idle")
+        animStateComp = .init(stateMachine: .init(states: [
+            IdleState(entity: self, animationName: "idle"),
+            WalkState(entity: self, animationName: "walk")
+        ]))
         
         let moveComp = MovementComponent(speed: characterData.speed,
                                          jumpForce: characterData.jumpForce)

@@ -11,7 +11,7 @@ public class CharacterControllerComponent: GKComponent {
     
     private var cameraNode: SCNNode
     private var moveComponent: MovementComponent?
-    private var animationComponent: AnimationComponent?
+    private var animationComponent: StateMachineComponent?
     
     private var axis: CGPoint = .zero
     
@@ -26,7 +26,7 @@ public class CharacterControllerComponent: GKComponent {
     
     public override func didAddToEntity() {
         moveComponent = self.entity?.component(ofType: MovementComponent.self)
-        animationComponent = self.entity?.component(ofType: AnimationComponent.self)
+        animationComponent = self.entity?.component(ofType: StateMachineComponent.self)
     }
 
     public func getAxis() -> CGPoint {
@@ -58,15 +58,12 @@ public class CharacterControllerComponent: GKComponent {
                 y: CGFloat(cameraRelative.z))
             
             moveComponent?.change(direction: relativeDirection)
-            animationComponent?.playAnimation(named: "walk")
+
+            animationComponent?.stateMachine.enter(WalkState.self)
         } else {
             moveComponent?.change(direction: .zero)
-            animationComponent?.playAnimation(named: "idle")
+            animationComponent?.stateMachine.enter(IdleState.self)
         }
-    }
-    
-    public func tryToAttack() {
-        animationComponent?.playAnimation(named: "attack")
     }
     
 }
