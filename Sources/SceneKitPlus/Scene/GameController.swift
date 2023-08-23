@@ -20,8 +20,9 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
     public var scene: SCNScene?
     public var moveAxis: CGPoint = .zero
     
-    init(sceneRenderer renderer: SCNSceneRenderer) {
+    init(sceneRenderer renderer: SCNSceneRenderer, sceneName: String) {
         sceneRenderer = renderer
+        self.scene = SCNScene(named: sceneName)
         super.init()
         
         sceneRenderer.delegate = self
