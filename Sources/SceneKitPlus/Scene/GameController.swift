@@ -20,6 +20,7 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
     public var scene: SCNScene?
     public var moveAxis: CGPoint = .zero
     public var entityManager: SCNEntityManager?
+    public var lastUpdateTime: TimeInterval = 0.0
     
     public init(sceneRenderer renderer: SCNSceneRenderer, sceneName: String) {
         sceneRenderer = renderer
@@ -39,7 +40,17 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
     }
     
     open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        // Called before each frame is rendered
+        
+        if (self.lastUpdateTime == 0) {
+            self.lastUpdateTime = time
+        }
+        
+        // Calculate time since last update
+        let deltaTime = time - self.lastUpdateTime
+        self.lastUpdateTime = time
+        
+        entityManager?.update(deltaTime: deltaTime)
+        
     }
     
     open func sceneDidLoad() {
