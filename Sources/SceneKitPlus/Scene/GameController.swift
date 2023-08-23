@@ -19,10 +19,14 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
     
     public var scene: SCNScene?
     public var moveAxis: CGPoint = .zero
+    public var entityManager: SCNEntityManager?
     
     public init(sceneRenderer renderer: SCNSceneRenderer, sceneName: String) {
         sceneRenderer = renderer
         self.scene = SCNScene(named: sceneName)
+        if let scene {
+            entityManager = SCNEntityManager(scene: scene)
+        }
         super.init()
         
         sceneRenderer.delegate = self
