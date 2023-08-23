@@ -21,14 +21,13 @@ open class CharacterControlledEntity: GKEntity {
         // Node component
         if let scene = SCNScene(named: characterData.prefixPath + characterData.name + ".scn"),
            let modelNode = scene.rootNode.childNode(withName: "\(characterData.name)", recursively: true),
-           let boydNode = scene.rootNode.childNode(withName: "body", recursively: true){
+           let bodyNode = scene.rootNode.childNode(withName: "body", recursively: true){
 
             let nodeComponent = GKSCNNodeComponent(node: scene.rootNode)
             self.addComponent(nodeComponent)
             
             // Physics Component
-            let physicsComp = PhysicsComponent(model: boydNode)
-            self.addComponent(physicsComp)
+            setupPhysicsComponent(model: bodyNode)
             
             // Camera Follow Component
             if let cameraNode {
@@ -74,6 +73,13 @@ open class CharacterControlledEntity: GKEntity {
     open func setupControllerComponent(cameraNode: SCNNode){
         controllerComp = CharacterControllerComponent(cameraNode: cameraNode)
         self.addComponent(controllerComp!)
+    }
+    
+    open func setupPhysicsComponent(model: SCNNode, geometry: SCNGeometry =  SCNCapsule(capRadius: 0.5, height: 3)) {
+        let madeBody = SCNPhysicsBody(type: .dynamic, shape: .init(geometry: geometry))
+        madeBody.angularVelocityFactor = .init(x: 0, y: 0, z: 0)
+        let physicsComp = PhysicsComponent(model: model, body: madeBody)
+        self.addComponent(physicsComp)
     }
     
     required public init?(coder: NSCoder) {
