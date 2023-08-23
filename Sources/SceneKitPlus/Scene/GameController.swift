@@ -1,0 +1,36 @@
+//
+//  GameViewController.swift
+//  
+//
+//  Created by Victor Vasconcelos on 23/08/23.
+//
+
+import SceneKit
+
+#if os(macOS)
+    typealias SCNColor = NSColor
+#else
+    typealias SCNColor = UIColor
+#endif
+
+open class GameController: NSObject, SCNSceneRendererDelegate {
+
+    public let sceneRenderer: SCNSceneRenderer
+    
+    public var scene: SCNScene?
+    public var moveAxis: CGPoint = .zero
+    
+    init(sceneRenderer renderer: SCNSceneRenderer) {
+        sceneRenderer = renderer
+        super.init()
+        
+        sceneRenderer.delegate = self
+        
+        sceneRenderer.scene = scene
+    }
+    
+    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        // Called before each frame is rendered
+    }
+
+}
