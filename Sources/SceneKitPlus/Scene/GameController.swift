@@ -30,7 +30,7 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
         sceneRenderer.scene = scene
     }
     
-    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+    open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         // Called before each frame is rendered
     }
 
