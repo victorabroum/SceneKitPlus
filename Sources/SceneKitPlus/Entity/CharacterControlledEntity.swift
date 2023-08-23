@@ -13,7 +13,7 @@ open class CharacterControlledEntity: GKEntity {
     public var controllerComp: CharacterControllerComponent?
     public var animStateComp: StateMachineComponent?
     
-    public init(characterData: CharacterData, cameraNode: SCNNode, cameraFollowEnabled: Bool = false) {
+    public init(characterData: CharacterData, cameraNode: SCNNode?) {
         super.init()
         
         self.addComponent(CharacterDataComponent(data: characterData))
@@ -31,7 +31,7 @@ open class CharacterControlledEntity: GKEntity {
             self.addComponent(physicsComp)
             
             // Camera Follow Component
-            if (cameraFollowEnabled) {
+            if let cameraNode {
                 self.addComponent(CameraFollowComponent(modelNode: modelNode, cameraNode: cameraNode))
             }
         }
@@ -46,10 +46,10 @@ open class CharacterControlledEntity: GKEntity {
         setupMoveComponent(characterData: characterData)
         
         // Controller Component
-        setupControllerComponent(cameraNode: cameraNode)
+        setupControllerComponent(cameraNode: cameraNode ?? SCNNode())
     }
     
-    public func setupAnimStateComp() {
+    open func setupAnimStateComp() {
         animStateComp = .init(stateMachine: .init(states: [
             IdleState(entity: self, animationName: "idle"),
             WalkState(entity: self, animationName: "walk", nextStates: [IdleState.self])
@@ -57,7 +57,7 @@ open class CharacterControlledEntity: GKEntity {
         animStateComp?.stateMachine.enter(IdleState.self)
     }
     
-    public func setupAnimationComponent(data: CharacterData) {
+    open func setupAnimationComponent(data: CharacterData) {
         let animationComp = AnimationComponent(data: data)
         self.addComponent(animationComp)
 
@@ -65,13 +65,13 @@ open class CharacterControlledEntity: GKEntity {
         animationComp.addAnimation(named: "idle", frameRange: 0...80)
     }
     
-    public func setupMoveComponent(characterData: CharacterData) {
+    open func setupMoveComponent(characterData: CharacterData) {
         let moveComp = MovementComponent(speed: characterData.speed,
                                          jumpForce: characterData.jumpForce)
         self.addComponent(moveComp)
     }
     
-    public func setupControllerComponent(cameraNode: SCNNode){
+    open func setupControllerComponent(cameraNode: SCNNode){
         controllerComp = CharacterControllerComponent(cameraNode: cameraNode)
         self.addComponent(controllerComp!)
     }
