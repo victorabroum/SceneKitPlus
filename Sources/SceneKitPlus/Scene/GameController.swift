@@ -28,6 +28,8 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
         sceneRenderer.delegate = self
         
         sceneRenderer.scene = scene
+        
+        observeGameControllers()
     }
     
     open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
