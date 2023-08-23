@@ -15,13 +15,14 @@ import SceneKit
 
 open class GameController: NSObject, SCNSceneRendererDelegate {
 
-    public let sceneRenderer: SCNSceneRenderer
+    open var moveAxis: CGPoint = .zero
+    open var entityManager: SCNEntityManager?
     
     public var scene: SCNScene?
-    public var moveAxis: CGPoint = .zero
-    public var entityManager: SCNEntityManager?
     public var lastUpdateTime: TimeInterval = 0.0
     
+    public let sceneRenderer: SCNSceneRenderer
+
     public init(sceneRenderer renderer: SCNSceneRenderer, sceneName: String) {
         sceneRenderer = renderer
         self.scene = SCNScene(named: sceneName)
