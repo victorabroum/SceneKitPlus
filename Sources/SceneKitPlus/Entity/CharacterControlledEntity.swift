@@ -54,6 +54,7 @@ open class CharacterControlledEntity: GKEntity {
             WalkState(entity: self, animationName: "walk", nextStates: [IdleState.self])
         ]))
         animStateComp?.stateMachine.enter(IdleState.self)
+        self.addComponent(animStateComp!)
     }
     
     open func setupAnimationComponent(data: CharacterData) {
