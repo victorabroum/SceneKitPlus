@@ -53,7 +53,7 @@ public class MovementComponent: GKComponent {
         model?.runAction(.rotateTo(
             x: CGFloat(rotation.x),
             y: CGFloat(angle),
-            z: CGFloat(rotation.y),
+            z: CGFloat(rotation.z),
             duration: 0.1, usesShortestUnitArc: true))
         
         let direction = SCNVector3(x: SCNFloat(direction.x * speed),
