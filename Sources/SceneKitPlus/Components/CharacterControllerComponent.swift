@@ -48,8 +48,8 @@ public class CharacterControllerComponent: GKComponent {
             forward = forward.normalized()
             right = right.normalized()
             
-            let rightRelative = right * axis.x
-            let forwardRelative = forward * axis.y
+            let rightRelative = right * SCNFloat(axis.x)
+            let forwardRelative = forward * SCNFloat(axis.y)
             
             let cameraRelative = forwardRelative + rightRelative
             

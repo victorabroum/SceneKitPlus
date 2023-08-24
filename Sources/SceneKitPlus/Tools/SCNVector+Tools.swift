@@ -6,7 +6,16 @@
 //
 
 import Foundation
+import SceneKit
 import GameplayKit
+
+#if os(macOS)
+typealias SCNFloat = CGFloat
+#endif
+#if os(iOS)
+typealias SCNFloat = Float
+#endif
+
 
 extension SCNVector3 {
     
@@ -20,13 +29,13 @@ extension SCNVector3 {
         return Float(sqrt(xD + yD + zD))
     }
     
-    mutating func setLength(_ length: CGFloat) {
+    mutating func setLength(_ length: SCNFloat) {
         self.normalize()
         self *= length
     }
     
-    mutating func setMaximumLength(_ maxLength: CGFloat) {
-        if CGFloat(self.length()) <= maxLength {
+    mutating func setMaximumLength(_ maxLength: SCNFloat) {
+        if SCNFloat(self.length()) <= maxLength {
             return
         } else {
             self.normalize()
@@ -42,7 +51,7 @@ extension SCNVector3 {
         if self.length() == 0 {
             return self
         }
-        return self / CGFloat(self.length())
+        return self / SCNFloat(self.length())
     }
     
     /**
@@ -97,20 +106,10 @@ extension SCNVector3 {
         return self
     }
     
-    static func positionFromTransform(_ transform: matrix_float4x4) -> SCNVector3 {
-        return SCNVector3Make(CGFloat(transform.columns.3.x), CGFloat(transform.columns.3.y), CGFloat(transform.columns.3.z))
-    }
-    
     func friendlyString() -> String {
         return "(\(String(format: "%.2f", x)), \(String(format: "%.2f", y)), \(String(format: "%.2f", z)))"
     }
     
-    func dot(_ vec: SCNVector3) -> CGFloat {
-        let xD = (self.x * vec.x)
-        let yD = (self.y * vec.y)
-        let zD = (self.z * vec.z)
-        return xD + yD + zD
-    }
     
     func cross(_ vec: SCNVector3) -> SCNVector3 {
         return SCNVector3(self.y * vec.z - self.z * vec.y, self.z * vec.x - self.x * vec.z, self.x * vec.y - self.y * vec.x)
@@ -158,21 +157,6 @@ extension SCNVector3 {
     }
     
     /**
-     * Multiplies the x, y and z fields of a SCNVector3 with the same scalar value and
-     * returns the result as a new SCNVector3.
-     */
-    static func * (vector: SCNVector3, scalar: CGFloat) -> SCNVector3 {
-        return SCNVector3Make(vector.x * scalar, vector.y * scalar, vector.z * scalar)
-    }
-    
-    /**
-     * Multiplies the x and y fields of a SCNVector3 with the same scalar value.
-     */
-    static func *= ( vector: inout SCNVector3, scalar: CGFloat) {
-        vector = vector * scalar
-    }
-    
-    /**
      * Divides two SCNVector3 vectors abd returns the result as a new SCNVector3
      */
     static func / (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
@@ -187,24 +171,51 @@ extension SCNVector3 {
     }
     
     /**
-     * Divides the x, y and z fields of a SCNVector3 by the same scalar value and
-     * returns the result as a new SCNVector3.
+     * Multiplies the x and y fields of a SCNVector3 with the same scalar value.
      */
-    static func / (vector: SCNVector3, scalar: CGFloat) -> SCNVector3 {
-        return SCNVector3Make(vector.x / scalar, vector.y / scalar, vector.z / scalar)
+    static func *= ( vector: inout SCNVector3, scalar: SCNFloat) {
+        vector = vector * scalar
     }
     
     /**
      * Divides the x, y and z of a SCNVector3 by the same scalar value.
      */
-    static func /= ( vector: inout SCNVector3, scalar: CGFloat) {
+    static func /= ( vector: inout SCNVector3, scalar: SCNFloat) {
         vector = vector / scalar
     }
+    
+    static func positionFromTransform(_ transform: matrix_float4x4) -> SCNVector3 {
+        return SCNVector3Make(SCNFloat(transform.columns.3.x), SCNFloat(transform.columns.3.y), SCNFloat(transform.columns.3.z))
+    }
+    
+    func dot(_ vec: SCNVector3) -> SCNFloat {
+        let xD = (self.x * vec.x)
+        let yD = (self.y * vec.y)
+        let zD = (self.z * vec.z)
+        return xD + yD + zD
+    }
+    
+    /**
+     * Multiplies the x, y and z fields of a SCNVector3 with the same scalar value and
+     * returns the result as a new SCNVector3.
+     */
+    static func * (vector: SCNVector3, scalar: SCNFloat) -> SCNVector3 {
+        return SCNVector3Make(vector.x * scalar, vector.y * scalar, vector.z * scalar)
+    }
+    
+    /**
+     * Divides the x, y and z fields of a SCNVector3 by the same scalar value and
+     * returns the result as a new SCNVector3.
+     */
+    static func / (vector: SCNVector3, scalar: SCNFloat) -> SCNVector3 {
+        return SCNVector3Make(vector.x / scalar, vector.y / scalar, vector.z / scalar)
+    }
+
 }
 
 public let SCNVector3One: SCNVector3 = SCNVector3(1.0, 1.0, 1.0)
 
-func SCNVector3Uniform(_ value: CGFloat) -> SCNVector3 {
+func SCNVector3Uniform(_ value: SCNFloat) -> SCNVector3 {
     return SCNVector3Make(value, value, value)
 }
 
@@ -212,7 +223,7 @@ func SCNVector3Uniform(_ value: CGFloat) -> SCNVector3 {
 /**
  * Calculates the SCNVector from lerping between two SCNVector3 vectors
  */
-func SCNVector3Lerp(vectorStart: SCNVector3, vectorEnd: SCNVector3, t: CGFloat) -> SCNVector3 {
+func SCNVector3Lerp(vectorStart: SCNVector3, vectorEnd: SCNVector3, t: SCNFloat) -> SCNVector3 {
     return SCNVector3Make(vectorStart.x + ((vectorEnd.x - vectorStart.x) * t), vectorStart.y + ((vectorEnd.y - vectorStart.y) * t), vectorStart.z + ((vectorEnd.z - vectorStart.z) * t))
 }
 
@@ -220,7 +231,7 @@ func SCNVector3Lerp(vectorStart: SCNVector3, vectorEnd: SCNVector3, t: CGFloat) 
  * Project the vector, vectorToProject, onto the vector, projectionVector.
  */
 func SCNVector3Project(vectorToProject: SCNVector3, projectionVector: SCNVector3) -> SCNVector3 {
-    let scale: CGFloat = projectionVector.dot(vectorToProject) / projectionVector.dot(projectionVector)
+    let scale: SCNFloat = projectionVector.dot(vectorToProject) / projectionVector.dot(projectionVector)
     let v: SCNVector3 = projectionVector * scale
     return v
 }
@@ -228,4 +239,3 @@ func SCNVector3Project(vectorToProject: SCNVector3, projectionVector: SCNVector3
 // Define a couple structures that hold GLFloats (3 and 2)
 struct Float3 { var x, y, z: GLfloat }
 struct Float2 { var s, t: GLfloat }
-

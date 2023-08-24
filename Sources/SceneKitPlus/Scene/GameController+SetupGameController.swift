@@ -15,9 +15,11 @@ extension GameController {
         NotificationCenter.default.addObserver(self, selector: #selector(didConnectController), name: .GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didDisconnectController), name: .GCControllerDidDisconnect, object: nil)
         
+#if os(macOS)
         if #available(macOS 11.0, *) {
             NotificationCenter.default.addObserver(self, selector: #selector(didConnectController), name: .GCKeyboardDidConnect, object: nil)
         }
+#endif
     }
     
     @objc
@@ -30,11 +32,12 @@ extension GameController {
         }
         
         
+#if os(macOS)
         if #available(macOS 11.0, *) {
             if let keyboard = GCKeyboard.coalesced {
                 // (GCKeyboardInput, GCControllerButtonInput, GCKeyCode, Bool)
                 keyboard.keyboardInput?.keyChangedHandler = { (keyInput, buttonInput, keyCode, isPressed) in
-                                        
+                    
                     var axis = self.moveAxis
                     
                     switch keyCode{
@@ -54,6 +57,7 @@ extension GameController {
                 }
             }
         }
+#endif
     }
     
     @objc
