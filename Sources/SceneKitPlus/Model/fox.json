@@ -1,0 +1,27 @@
+[
+    {
+        "name" : "idle",
+        "startFrame" : 1,
+        "endFrame" : 81
+    },
+    {
+        "name" : "walk",
+        "startFrame" : 81,
+        "endFrame" : 97
+    },
+    {
+        "name" : "attack",
+        "startFrame" : 97,
+        "endFrame" : 118
+    },
+    {
+        "name" : "jump",
+        "startFrame" : 118,
+        "endFrame" : 135
+    },
+    {
+        "name" : "fall",
+        "startFrame" : 135,
+        "endFrame" : 175
+    },
+]
