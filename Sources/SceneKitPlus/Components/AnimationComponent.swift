@@ -42,4 +42,18 @@ public class AnimationComponent: GKComponent {
         self.node?.addAnimation(subAnimation, forKey: named)
         self.node?.animationPlayer(forKey: named)?.stop()
     }
+    
+    public func loadAnimation(fileNamed: String) {
+        if let path = Bundle.main.path(forResource: fileNamed, ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let animData = try JSONDecoder().decode([AnimationData].self, from: data)
+                for anim in animData {
+                    self.addAnimation(named: anim.name, frameRange: anim.startFrame...(anim.endFrame - 1))
+                }
+            } catch {
+                fatalError("Erro on try load JSON => \(error)")
+            }
+        }
+    }
 }
