@@ -29,6 +29,8 @@ open class CharacterControlledEntity: GKEntity {
             // Physics Component
             setupPhysicsComponent(model: bodyNode)
             
+            self.addComponent(ModelComponent(body: bodyNode))
+            
             // Camera Follow Component
             if let cameraNode {
                 self.addComponent(CameraFollowComponent(modelNode: modelNode, cameraNode: cameraNode))
