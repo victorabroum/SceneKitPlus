@@ -14,7 +14,7 @@ open class ModelComponent: GKComponent {
     
     public init(body: SCNNode) {
         self.model = body
-        self.position = body.position
+        self.position = body.presentation.position
         super.init()
     }
     
