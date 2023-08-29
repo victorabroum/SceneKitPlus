@@ -30,7 +30,7 @@ public class MovementComponent: GKComponent {
     public override func didAddToEntity() {
         physicsComponent = self.entity?.component(ofType: PhysicsComponent.self)
         let data = self.entity?.component(ofType: CharacterDataComponent.self)?.data
-        model = self.entity?.component(ofType: GKSCNNodeComponent.self)?.node.childNode(withName: "\(data?.name ?? "")", recursively: true)
+        model = self.entity?.component(ofType: GKSCNNodeComponent.self)?.node//.childNode(withName: "\(data?.name ?? "")", recursively: true)
     }
     
     public func change(direction: CGPoint) {
