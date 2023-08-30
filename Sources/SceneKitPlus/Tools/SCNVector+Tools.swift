@@ -10,14 +10,14 @@ import SceneKit
 import GameplayKit
 
 #if os(macOS)
-typealias SCNFloat = CGFloat
+public typealias SCNFloat = CGFloat
 #endif
 #if os(iOS)
-typealias SCNFloat = Float
+public typealias SCNFloat = Float
 #endif
 
 
-extension SCNVector3 {
+public extension SCNVector3 {
     
     /**
      * Returns the length (magnitude) of the vector described by the SCNVector3
