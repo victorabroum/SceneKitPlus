@@ -9,10 +9,10 @@ import GameplayKit
 
 open class GenericAnimState: GKState {
     
-    private weak var entity: GKEntity?
-    private var animationName: String
-    private var node: SCNNode?
-    private var nextStates: [AnyClass]?
+    public weak var entity: GKEntity?
+    public var animationName: String
+    public var node: SCNNode?
+    public var nextStates: [AnyClass]?
     
     public init(entity: GKEntity, animationName: String, nextStates: [AnyClass]? = nil) {
         self.entity = entity
@@ -22,7 +22,7 @@ open class GenericAnimState: GKState {
         self.node = self.entity?.component(ofType: GKSCNNodeComponent.self)?.node
     }
     
-    public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    open override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         guard let nextStates else { return true }
         
         return nextStates.contains { obj in
@@ -30,11 +30,11 @@ open class GenericAnimState: GKState {
         }
     }
     
-    public override func didEnter(from previousState: GKState?) {
+    open override func didEnter(from previousState: GKState?) {
         self.node?.animationPlayer(forKey: animationName)?.play()
     }
     
-    public override func willExit(to nextState: GKState) {
+    open override func willExit(to nextState: GKState) {
         self.node?.animationPlayer(forKey: animationName)?.stop(withBlendOutDuration: 0.1)
     }
 }

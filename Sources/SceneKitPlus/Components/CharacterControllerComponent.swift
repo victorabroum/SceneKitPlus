@@ -59,10 +59,10 @@ public class CharacterControllerComponent: GKComponent {
             
             moveComponent?.change(direction: relativeDirection)
 
-            animationComponent?.stateMachine.enter(WalkState.self)
+            animationComponent?.delegate.enterWalk()
         } else {
             moveComponent?.change(direction: .zero)
-            animationComponent?.stateMachine.enter(IdleState.self)
+            animationComponent?.delegate.enterIdle()
         }
     }
     
