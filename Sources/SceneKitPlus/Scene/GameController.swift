@@ -54,8 +54,15 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
         
     }
     
-    open func sceneDidLoad() {
-        
-    }
+    open func sceneDidLoad() { }
+    
+    open func didButtonAPressed() { }
+    open func didButtonAReleased () { }
+    
+    open func didButtonBPressed() { }
+    open func didButtonBReleased () { }
+    
+    open func didSpaceBarPressed() { }
+    open func didSpaceBarReleased() { }
 
 }

@@ -41,6 +41,12 @@ extension GameController {
                     var axis = self.moveAxis
                     
                     switch keyCode{
+                    case .spacebar:
+                        if (isPressed) {
+                            self.didSpaceBarPressed()
+                        } else {
+                            self.didSpaceBarReleased()
+                        }
                     case .keyA, .leftArrow:
                         axis.x = isPressed ? -1 : 0
                     case .keyD, .rightArrow:
@@ -94,12 +100,6 @@ extension GameController {
             
         }
     }
-    
-    public func didButtonAPressed() { }
-    public func didButtonAReleased () { }
-    
-    public func didButtonBPressed() { }
-    public func didButtonBReleased () { }
     
     public func inputDetected(gamepad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
         
