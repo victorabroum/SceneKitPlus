@@ -18,11 +18,17 @@ public class SCNEntityManager {
         self.scene = scene
     }
     
-    public func add(entity: GKEntity) {
+    public func add(entity: GKEntity, parent: GKEntity? = nil) {
         
         // If has a node component add on Scene
         if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node {
-            self.scene.rootNode.addChildNode(node)
+            
+            if let partenNode = parent?.component(ofType: GKSCNNodeComponent.self)?.node {
+                partenNode.addChildNode(node)
+            } else {
+                self.scene.rootNode.addChildNode(node)
+            }
+            
         }
         
         // A strong reference to entity
