@@ -210,6 +210,8 @@ public extension SCNVector3 {
     static func / (vector: SCNVector3, scalar: SCNFloat) -> SCNVector3 {
         return SCNVector3Make(vector.x / scalar, vector.y / scalar, vector.z / scalar)
     }
+    
+    static let zero: SCNVector3 = .init(0, 0, 0)
 
 }
 

@@ -10,7 +10,7 @@ import SceneKit
 
 public class SCNEntityManager {
     
-    private var entities: [GKEntity] = []
+    public private(set) var entities: [GKEntity] = []
     
     private var scene: SCNScene
     
