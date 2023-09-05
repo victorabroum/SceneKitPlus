@@ -20,7 +20,9 @@ public class SCNEntityManager {
     
     public func add(entity: GKEntity, parent: GKEntity? = nil) {
         
-        (entity as? SCNEntity)?.entityManager = self
+        if let managerComp = entity.component(ofType: EntityManagerComponent.self) {
+            managerComp.entityManager = self
+        }
         
         // If has a node component add on Scene
         if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node {
@@ -37,7 +39,7 @@ public class SCNEntityManager {
         self.entities.append(entity)
     }
     
-    public func remove(entity: SCNEntity) {
+    public func remove(entity: GKEntity) {
         entities.removeAll { currentEntity in
             return currentEntity == entity
         }

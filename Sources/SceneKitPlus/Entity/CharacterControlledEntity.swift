@@ -8,7 +8,7 @@ import Foundation
 import GameplayKit
 import SceneKit
 
-open class CharacterControlledEntity: SCNEntity {
+open class CharacterControlledEntity: GKEntity {
     
     public var controllerComp: CharacterControllerComponent?
     public var animStateComp: StateMachineComponent?
