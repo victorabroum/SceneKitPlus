@@ -20,6 +20,8 @@ public class SCNEntityManager {
     
     public func add(entity: GKEntity, parent: GKEntity? = nil) {
         
+        (entity as? SCNEntity)?.entityManager = self
+        
         // If has a node component add on Scene
         if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node {
             
@@ -33,6 +35,12 @@ public class SCNEntityManager {
         
         // A strong reference to entity
         self.entities.append(entity)
+    }
+    
+    public func remove(entity: SCNEntity) {
+        entities.removeAll { currentEntity in
+            return currentEntity == entity
+        }
     }
     
     public func update(deltaTime: TimeInterval) {
