@@ -51,6 +51,4 @@ open class BaseAnimationStates: BaseAnimationDelegate {
     public func enterIdle() {
         stateMachine?.enter(IdleState.self)
     }
-    
-    
 }

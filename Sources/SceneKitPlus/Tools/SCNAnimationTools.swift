@@ -9,7 +9,7 @@ import SceneKit
 
 public struct SCNAnimationTools {
     
-    static func loadAnimation(fromSceneNamed sceneName: String) -> SCNAnimationPlayer? {
+    public static func loadAnimation(fromSceneNamed sceneName: String) -> SCNAnimationPlayer? {
         guard let scene = SCNScene( named: sceneName ) else { return nil }
         // Find the top-level animation.
         var animationPlayer: SCNAnimationPlayer! = nil
@@ -22,13 +22,13 @@ public struct SCNAnimationTools {
         return animationPlayer
     }
     
-    static func subAnimation(of fullAnimation: CAAnimation, startFrame:Int, endFrame:Int) -> CAAnimation {
+    public static func subAnimation(of fullAnimation: CAAnimation, startFrame:Int, endFrame:Int) -> CAAnimation {
         let (startTime, duration) = timeRange(startFrame:startFrame, endFrame:endFrame)
         let animation = subAnimation(of: fullAnimation, offset: startTime, duration: duration)
         return animation
     }
 
-    static func subAnimation(of fullAnimation: CAAnimation,
+    public static func subAnimation(of fullAnimation: CAAnimation,
                              offset timeOffset: CFTimeInterval,
                              duration:CFTimeInterval) -> CAAnimation {
         fullAnimation.timeOffset = timeOffset
@@ -38,18 +38,18 @@ public struct SCNAnimationTools {
         return container
     }
     
-    static func timeRange(startFrame:Int, endFrame:Int) -> (startTime:CFTimeInterval, duration:CFTimeInterval) {
+    public static func timeRange(startFrame:Int, endFrame:Int) -> (startTime:CFTimeInterval, duration:CFTimeInterval) {
         let startTime = timeOf(frame:startFrame)
         let endTime = timeOf(frame:endFrame)
         let duration = endTime - startTime
         return (startTime, duration)
     }
     
-    static func timeOf(frame:Int) -> CFTimeInterval {
+    public static func timeOf(frame:Int) -> CFTimeInterval {
         return CFTimeInterval(frame) / framesPerSecond()
     }
 
-    static func framesPerSecond() -> CFTimeInterval {
+    public static func framesPerSecond() -> CFTimeInterval {
         // number of frames per second the model was designed with
         return 24.0
     }
