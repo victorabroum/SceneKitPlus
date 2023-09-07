@@ -42,6 +42,12 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
     
     open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
+        
+        
+    }
+    
+    public func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = time
         }
@@ -51,7 +57,6 @@ open class GameController: NSObject, SCNSceneRendererDelegate {
         self.lastUpdateTime = time
         
         entityManager?.update(deltaTime: deltaTime)
-        
     }
     
     open func sceneDidLoad() { }
