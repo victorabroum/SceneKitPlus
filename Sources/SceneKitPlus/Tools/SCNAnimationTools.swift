@@ -46,11 +46,8 @@ public struct SCNAnimationTools {
     }
     
     public static func timeOf(frame:Int) -> CFTimeInterval {
-        return CFTimeInterval(frame) / framesPerSecond()
+        return CFTimeInterval(frame) / framesPerSecond
     }
-
-    public static func framesPerSecond() -> CFTimeInterval {
-        // number of frames per second the model was designed with
-        return 24.0
-    }
+    
+    public static var framesPerSecond: CFTimeInterval = 24
 }
